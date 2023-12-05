@@ -2,7 +2,7 @@
   "name": "advent-of-code",
   "version": "1.0.0",
   "description": "",
-  "main": "day5-test.js",
+  "main": "day5/day5-test.js",
   "scripts": {
     "test": "mocha"
   },

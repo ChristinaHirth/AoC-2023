@@ -1,5 +1,6 @@
 const assert = require('assert');
-const day5 = require('./day5')
+const data = require('./data')
+const {getLocation, getDestination} = require("./day5");
 
 /**
  *
@@ -63,32 +64,19 @@ const seeds = [79, 14, 44, 13]
  */
 const seed2soil = [[50, 98, 2], [52, 50, 48]]
 
-const getDestination = (source) => (suite) => {
-    let result
-    for (let n of suite) {
-        if (source === n[1]) result = n[0]
-        else if (source > n[1] && source <= n[1] + n[2]) result = source - n[1] + n[0]
-        if (!!result) return result
-    }
-    if (!result) {
-        result = source
-    }
-    return result
-}
 const localSuites = [seed2soil, soil2fertilizer, fertilizer2water, water2light, light2temp, temp2humidity, humidity2location]
-const getLocation = (seed, suites) => {
-    let target = seed
-    for (const suite of suites) {
-        target = getDestination(target)(suite)
-    }
-    return target
+
+
+const mapSeeds = (start, range) => {
+    return Array.from(start, start + range, 1)
 }
 
 const getSeedsFromPairs = (seeds) => {
     const result = []
     for (let i = 0; i < seeds.length; i = i + 2) {
-        result.push([seeds[i], seeds[i + 1]])
+        result.push(...mapSeeds([seeds[i] + 1, seeds[i + 1]]))
     }
+    return result
 }
 
 describe('day 5 test data', function () {
@@ -133,8 +121,8 @@ describe('day 5 test data', function () {
 describe('day5 challenge data', function () {
     describe('find destinations', function () {
         it('should find all locations', function () {
-            const results = day5.targetSeeds.map(seed => getLocation(seed, day5.suites)).sort((n1, n2) => n1 - n2)
-            assert.equal(results.length, day5.targetSeeds.length)
+            const results = data.targetSeeds.map(seed => getLocation(seed, data.suites)).sort((n1, n2) => n1 - n2)
+            assert.equal(results.length, data.targetSeeds.length)
             assert.equal(results[0], 462648396)
         })
     })
