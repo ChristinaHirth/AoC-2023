@@ -1,6 +1,15 @@
 const assert = require('assert');
 const data = require('./data')
-const {getLocation, getDestination} = require("./day5");
+const {
+    getLocation,
+    getDestination,
+    getMissingSeedLists,
+    mapSeeds,
+    seedRanges,
+    getRangeLocation,
+    sortDesc, sortAsc
+} = require("./day5");
+const {targetSeeds} = require("./data");
 
 /**
  *
@@ -57,7 +66,7 @@ const soil2fertilizer = [
     [39, 0, 15]
 ]
 
-const seeds = [79, 14, 44, 13]
+const seeds = [79, 14, 55, 13]
 /**
  *
  * @type {[soil:number,seed:number,rangeLength:number][]}
@@ -65,19 +74,6 @@ const seeds = [79, 14, 44, 13]
 const seed2soil = [[50, 98, 2], [52, 50, 48]]
 
 const localSuites = [seed2soil, soil2fertilizer, fertilizer2water, water2light, light2temp, temp2humidity, humidity2location]
-
-
-const mapSeeds = (start, range) => {
-    return Array.from(start, start + range, 1)
-}
-
-const getSeedsFromPairs = (seeds) => {
-    const result = []
-    for (let i = 0; i < seeds.length; i = i + 2) {
-        result.push(...mapSeeds([seeds[i] + 1, seeds[i + 1]]))
-    }
-    return result
-}
 
 describe('day 5 test data', function () {
     describe('find destination', function () {
@@ -115,6 +111,13 @@ describe('day 5 test data', function () {
         it('should return location 35 for seed 13', function () {
             assert.equal(getLocation(13, localSuites), 35)
         })
+        it('should return a new location 46 for seed ranges', function () {
+            const newSeedRanges = seedRanges(seeds)
+            assert.deepEqual(newSeedRanges, [[79, 92], [55, 67]])
+
+            const newLocations = getRangeLocation(newSeedRanges, localSuites).sort(sortAsc)
+            assert.equal(newLocations[0], 46)
+        })
     });
 });
 
@@ -124,6 +127,43 @@ describe('day5 challenge data', function () {
             const results = data.targetSeeds.map(seed => getLocation(seed, data.suites)).sort((n1, n2) => n1 - n2)
             assert.equal(results.length, data.targetSeeds.length)
             assert.equal(results[0], 462648396)
+        })
+
+        it('should solve the second part', function () {
+
+
+            const maxSeed = 907727477
+            const maxSoil = 1099140324
+
+            const maxFertilizer = 1599876815
+
+            const maxWater = 1745948681
+            const maxLight = 2229627199
+            const maxTemp = 2229627199
+            const startHumidity = 1766978803
+            const maxHumidity = 2229627199
+
+            const newHumidity2Location = [0, 1766978803, 462648396]
+            const maxLocation = 462648396
+            //second answer = 342640189 too high
+            //third answer = 59453127 too high
+            //fourth answer = 10516671 too high
+            //fifth answer = 2520480 too high
+
+            const newSeedRanges = seedRanges(data.targetSeeds).reverse()
+            /* getRangeLocation([newSeedRanges[0]], data.suites)
+             getRangeLocation([newSeedRanges[1]], data.suites)
+             getRangeLocation([newSeedRanges[2]], data.suites)
+             getRangeLocation([newSeedRanges[3]], data.suites)
+             getRangeLocation([newSeedRanges[4]], data.suites)
+             getRangeLocation([newSeedRanges[5]], data.suites)
+             getRangeLocation([newSeedRanges[6]], data.suites)
+             getRangeLocation([newSeedRanges[7]], data.suites)
+             getRangeLocation([newSeedRanges[8]], data.suites)
+
+             */
+            getRangeLocation([newSeedRanges[2], newSeedRanges[3]], data.suites)
+
         })
     })
 })
