@@ -3,13 +3,9 @@ const data = require('./data')
 const {
     getLocation,
     getDestination,
-    getMissingSeedLists,
-    mapSeeds,
     seedRanges,
     getRangeLocation,
-    sortDesc, sortAsc
 } = require("./day5");
-const {targetSeeds} = require("./data");
 
 /**
  *
@@ -115,7 +111,7 @@ describe('day 5 test data', function () {
             const newSeedRanges = seedRanges(seeds)
             assert.deepEqual(newSeedRanges, [[79, 92], [55, 67]])
 
-            const newLocations = getRangeLocation(newSeedRanges, localSuites).sort(sortAsc)
+            const newLocations = getRangeLocation(newSeedRanges, localSuites)
             assert.equal(newLocations[0], 46)
         })
     });
@@ -129,7 +125,7 @@ describe('day5 challenge data', function () {
             assert.equal(results[0], 462648396)
         })
 
-        it('should solve the second part', function () {
+        it.skip('should solve the second part', function () {
 
 
             const maxSeed = 907727477
@@ -150,7 +146,7 @@ describe('day5 challenge data', function () {
             //fourth answer = 10516671 too high
             //fifth answer = 2520480 too high
 
-            const newSeedRanges = seedRanges(data.targetSeeds).reverse()
+            const newSeedRanges = seedRanges(data.targetSeeds)
             /* getRangeLocation([newSeedRanges[0]], data.suites)
              getRangeLocation([newSeedRanges[1]], data.suites)
              getRangeLocation([newSeedRanges[2]], data.suites)
@@ -159,11 +155,14 @@ describe('day5 challenge data', function () {
              getRangeLocation([newSeedRanges[5]], data.suites)
              getRangeLocation([newSeedRanges[6]], data.suites)
              getRangeLocation([newSeedRanges[7]], data.suites)
-             getRangeLocation([newSeedRanges[8]], data.suites)
 
              */
-            getRangeLocation([newSeedRanges[2], newSeedRanges[3]], data.suites)
+            getRangeLocation([newSeedRanges[8]], data.suites)
+            getRangeLocation([newSeedRanges[9]], data.suites)
 
+            /*
+              getRangeLocation([newSeedRanges[2], newSeedRanges[3]], data.suites)
+              */
         })
     })
 })

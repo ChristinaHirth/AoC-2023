@@ -15,11 +15,11 @@ const getLocation = (seed, suites) => {
     for (const suite of suites) {
         target = getDestination(target)(suite)
     }
-    return target
+    return Number(target)
 }
 const getRangeLocation = (seedRange, suites) => {
     const locations = []
-    const maxLocation = 10516671
+    const maxLocation = 59453127
     console.log({seedRange})
     for (const seedRangeElement of seedRange) {
         /*const lowestLocation = getLocation(seedRangeElement[0], suites)
@@ -39,6 +39,7 @@ const getRangeLocation = (seedRange, suites) => {
     const result = locations.sort(sortAsc)
     if (result.length > 0) console.log(result[0])
     if (result.length > 1) console.log(result[1])
+    return result
 }
 
 const seedRanges = (seeds) => {
