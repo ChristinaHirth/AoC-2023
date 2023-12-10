@@ -1,7 +1,7 @@
 const {equal, deepEqual} = require("assert");
 
 const data = require("./data.json")
-const {getValues, mapDirections} = require("./day8");
+const {getValues, mapDirections, mapDirections2} = require("./day8");
 const testData = {
     directions: data.testDirections,
     values: data.testValues

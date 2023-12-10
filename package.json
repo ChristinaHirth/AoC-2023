@@ -4,7 +4,8 @@
   "description": "",
   "main": "day5/day5.test.js",
   "scripts": {
-    "test": "mocha ./**/*.test.js"
+    "test": "mocha ./**/*.test.js",
+    "testday8": "mocha ./day8/day8.test.js --timeout=300000000 "
   },
   "author": "",
   "license": "ISC",
